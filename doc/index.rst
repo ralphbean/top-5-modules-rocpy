@@ -9,4 +9,4 @@ The most powerful and the most magical
  - sh
  - pandas
  - fabulous
- - urwid
+ - BeautifulSoup
