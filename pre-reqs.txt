@@ -1,0 +1,12 @@
+- what is pypi?
+  - http://pypi.python.org/pypi
+  - http://pypi-ranking.info
+  - http://pypi-mirrors.org
+  - How to upload something to pypi
+    - $ python setup.py register
+    - $ python setup.py sdist upload
+- how to install stuff from pypi?
+  - easy_install and pip
+  - http://s3.pixane.com/python_comrades.png
+- virtualenv
+- virtualenvwrapper
