@@ -15,6 +15,7 @@ class User(Base):
     password = Column(String)
 
     def __init__(self, name, fullname, password):
+        print "** Initializing User object"
         self.name = name
         self.fullname = fullname
         self.password = password
