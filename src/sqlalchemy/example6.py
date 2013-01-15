@@ -1,43 +1,10 @@
 from example1 import User
+from example1 import Base
+from example2 import create_model
+from example3 import create_user
+from example4 import create_session
 
-# Creating an engine
-from sqlalchemy import create_engine
-engine = create_engine('sqlite:///:memory:', echo=True)
-
-
-# Creating our tables.
-def create_model(engine):
-    Base.metadata.create_all(engine)
-
-
-# Creating an instance
-def create_user():
-    ed_user = User('ed', 'Ed Jones', 'edspassword')
-    ed_user.name
-    #'ed'
-    ed_user.password
-    #'edspassword'
-    str(ed_user.id)
-    #'None'
-
-# Creating a session
-from sqlalchemy.orm import sessionmaker
-Session = sessionmaker(bind=engine)
-session = Session()
-
-
-# Using a session
-def create_and_add_user():
-    ed_user = User('ed', 'Ed Jones', 'edspassword')
-    session.add(ed_user)
-    our_user = session.query(User).filter_by(name='ed').first()
-    print ed_user is our_user  # True!
-    print ed_user.id
-    session.commit()
-    print ed_user.id
-
-# Relationships
-from sqlalchemy import ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, backref
 
 
@@ -55,12 +22,25 @@ class Address(Base):
     def __repr__(self):
         return "<Address('%s')>" % self.email_address
 
-# lazy loading
-# eager loading
 
-# transactions
+def create_fake_data(session):
+    user = User('Bobby B', 'some_password', None)
+    session.add(user)
+    address = Address('bobby@b.com')
+    session.add(address)
+    user.addresses.append(address)
+    session.commit()
 
-# advanced uses
-#   introspection       (tw2.jit)
-#   reflection          (slurchemy)
-#   session extensions  (apply)
+if __name__ == '__main__':
+    from sqlalchemy import create_engine
+    engine = create_engine('sqlite:///:memory:', echo=True)
+    create_model(engine)
+    session = create_session(engine)
+
+    create_fake_data(session)
+
+    some_user = session.query(User).first()
+    print "** Got this user:", some_user
+    print "**   with addresses:",
+    for address in some_user.addresses:
+        print "**    ", address

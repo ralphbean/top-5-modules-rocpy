@@ -1,17 +1,8 @@
 from example1 import User
-from example1 import Base
-
 from example2 import create_model
-
 from example3 import create_user
+from example4 import create_session
 
-
-def create_session(engine):
-    # Creating a session
-    from sqlalchemy.orm import sessionmaker
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    return session
 
 if __name__ == '__main__':
     from sqlalchemy import create_engine
