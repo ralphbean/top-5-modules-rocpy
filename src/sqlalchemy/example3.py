@@ -15,3 +15,5 @@ if __name__ == '__main__':
     engine = create_engine('sqlite:///:memory:', echo=True)
     create_model(engine)
     ed_user = create_user()
+    print "-" * 20
+    print ed_user

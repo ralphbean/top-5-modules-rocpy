@@ -28,7 +28,8 @@ def create_fake_data(session):
     session.add(user)
     address = Address('bobby@b.com')
     session.add(address)
-    user.addresses.append(address)
+    #user.addresses.append(address)
+    address.user = user
     session.commit()
 
 if __name__ == '__main__':
@@ -44,3 +45,5 @@ if __name__ == '__main__':
     print "**   with addresses:",
     for address in some_user.addresses:
         print "**    ", address
+
+    print address.user
